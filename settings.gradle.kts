@@ -14,3 +14,4 @@ rootProject.name = "ktor-plugins"
 
 include("doma-statistics")
 include("komapper-statistics")
+include("integration-test")

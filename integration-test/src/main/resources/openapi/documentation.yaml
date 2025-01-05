@@ -1,0 +1,168 @@
+openapi: "3.1.0"
+info:
+  title: "ktor_plugins API"
+  description: "ktor_plugins API"
+  version: "1.0.0"
+servers:
+- url: "https://ktor_plugins"
+paths:
+  /admin/doma/statistics/{doma_config_id}:
+    get:
+      description: ""
+      parameters:
+      - name: "doma_config_id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      - name: "sort"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      - name: "sort_direction"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      - name: "limit"
+        in: "query"
+        required: false
+        schema:
+          type: "integer"
+      - name: "page"
+        in: "query"
+        required: false
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Statistic"
+  /admin/doma/statistics/{doma_config_id}/clear:
+    delete:
+      description: ""
+      parameters:
+      - name: "doma_config_id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "204":
+          description: "No Content"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NullBody"
+  /admin/komapper/statistics/{komapper_config_id}:
+    get:
+      description: ""
+      parameters:
+      - name: "komapper_config_id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      - name: "sort"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      - name: "sort_direction"
+        in: "query"
+        required: false
+        schema:
+          type: "object"
+      - name: "limit"
+        in: "query"
+        required: false
+        schema:
+          type: "integer"
+      - name: "page"
+        in: "query"
+        required: false
+        schema:
+          type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/MySqlStatistics"
+  /admin/komapper/statistics/{komapper_config_id}/clear:
+    delete:
+      description: ""
+      parameters:
+      - name: "komapper_config_id"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "204":
+          description: "No Content"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NullBody"
+components:
+  schemas:
+    Statistic:
+      type: "object"
+      properties:
+        sql:
+          type: "string"
+        execCount:
+          type: "integer"
+          format: "int64"
+        execMaxTime:
+          type: "integer"
+          format: "int64"
+        execMinTime:
+          type: "integer"
+          format: "int64"
+        execTotalTime:
+          type: "integer"
+          format: "int64"
+        execAvgTime:
+          type: "number"
+          format: "double"
+    NullBody:
+      type: "object"
+      properties: {}
+    MySqlStatistics:
+      type: "object"
+      properties:
+        sql:
+          type: "string"
+        executionCount:
+          type: "integer"
+          format: "int64"
+        executionMaxTime:
+          type: "integer"
+          format: "int64"
+        executionMinTime:
+          type: "integer"
+          format: "int64"
+        executionTotalTime:
+          type: "integer"
+          format: "int64"
+        executionAvgTime:
+          type: "number"
+          format: "double"
+      required:
+      - "sql"
+      - "executionCount"
+      - "executionMaxTime"
+      - "executionMinTime"
+      - "executionTotalTime"
+      - "executionAvgTime"
