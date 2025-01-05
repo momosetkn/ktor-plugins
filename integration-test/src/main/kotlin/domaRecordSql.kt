@@ -13,6 +13,6 @@ suspend fun domaRecordSql() {
     val sql =
         PreparedSql(SqlKind.SELECT, "SELECT * FROM table${(Math.random() * 10).toLong()}", "", "", emptyList<InParameter<*>>(), SqlLogType.NONE)
     val startTime = System.nanoTime()
-    val endTime = startTime + (Math.random() * 100).toLong()
+    val endTime = startTime + (Math.random() * 100_000_000).toLong()
     org.seasar.doma.jdbc.ConfigSupport.defaultStatisticManager.recordSqlExecution(sql, startTime, endTime)
 }

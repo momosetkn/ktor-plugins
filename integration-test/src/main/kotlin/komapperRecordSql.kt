@@ -13,7 +13,7 @@ suspend fun komapperRecordSql() {
     }
     val sql = "SELECT * FROM table${(Math.random() * 10).toLong()}"
     val startTime = System.nanoTime()
-    val endTime = startTime + (Math.random() * 100).toLong()
+    val endTime = startTime + (Math.random() * 100_000_000).toLong()
     defaultStatisticManager.add(sql, startTime, endTime)
     delay(100L)
 }
