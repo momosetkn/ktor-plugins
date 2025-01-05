@@ -97,7 +97,7 @@ paths:
               schema:
                 type: "array"
                 items:
-                  $ref: "#/components/schemas/MySqlStatistics"
+                  $ref: "#/components/schemas/SqlStatistics"
   /admin/komapper/statistics/{komapper_config_id}/clear:
     delete:
       description: ""
@@ -139,7 +139,7 @@ components:
     NullBody:
       type: "object"
       properties: {}
-    MySqlStatistics:
+    SqlStatistics:
       type: "object"
       properties:
         sql:

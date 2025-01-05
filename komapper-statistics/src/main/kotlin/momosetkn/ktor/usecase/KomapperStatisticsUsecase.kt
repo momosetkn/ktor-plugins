@@ -16,17 +16,17 @@ object KomapperStatisticsUsecase {
         sortDirection: SortDirection,
         limit: Int,
         page: Int,
-    ): List<MySqlStatistics> {
+    ): List<SqlStatistics> {
         val statisticManager = statisticManagerMap[komapperConfigId]
         requireNotNull(statisticManager)
         val statistics = statisticManager.getAllSqlStatistics().map { it.toMyDataClass() }
 
-        val sortFun: (MySqlStatistics) -> Comparable<*> = when (sort) {
-            KomapperStatisticsSortType.EXECUTION_COUNT -> MySqlStatistics::executionCount
-            KomapperStatisticsSortType.EXECUTION_MAX_TIME -> MySqlStatistics::executionMaxTime
-            KomapperStatisticsSortType.EXECUTION_MIN_TIME -> MySqlStatistics::executionMinTime
-            KomapperStatisticsSortType.EXECUTION_TOTAL_TIME -> MySqlStatistics::executionTotalTime
-            KomapperStatisticsSortType.EXECUTION_AVG_TIME -> MySqlStatistics::executionAvgTime
+        val sortFun: (SqlStatistics) -> Comparable<*> = when (sort) {
+            KomapperStatisticsSortType.EXECUTION_COUNT -> SqlStatistics::executionCount
+            KomapperStatisticsSortType.EXECUTION_MAX_TIME -> SqlStatistics::executionMaxTime
+            KomapperStatisticsSortType.EXECUTION_MIN_TIME -> SqlStatistics::executionMinTime
+            KomapperStatisticsSortType.EXECUTION_TOTAL_TIME -> SqlStatistics::executionTotalTime
+            KomapperStatisticsSortType.EXECUTION_AVG_TIME -> SqlStatistics::executionAvgTime
         }
         val offset = (page - 1) * page
         val limit = page * limit
@@ -51,7 +51,7 @@ object KomapperStatisticsUsecase {
     }
 }
 
-data class MySqlStatistics(
+data class SqlStatistics(
     val sql: String,
     val executionCount: Long,
     val executionMaxTime: Long,
@@ -60,7 +60,7 @@ data class MySqlStatistics(
     val executionAvgTime: Double,
 )
 
-private fun Map.Entry<String, org.komapper.core.SqlStatistics>.toMyDataClass() = MySqlStatistics(
+private fun Map.Entry<String, org.komapper.core.SqlStatistics>.toMyDataClass() = SqlStatistics(
     sql = this.key,
     executionCount = this.value.executionCount,
     executionMaxTime = this.value.executionMaxTime,
