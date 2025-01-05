@@ -2,6 +2,13 @@ val ktorVersion = rootProject.properties["ktorVersion"] as String
 val domaVersion = rootProject.properties["domaVersion"] as String
 val kotestVersion = rootProject.properties["kotestVersion"] as String
 
+plugins {
+    kotlin("jvm")
+
+    id("io.ktor.plugin")
+    kotlin("plugin.serialization")
+}
+
 dependencies {
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     // type safe routing
